@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { Suspense, useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Save, Loader2, AlertCircle, Check, RefreshCw } from 'lucide-react';
@@ -27,6 +27,14 @@ import type { SettingsSection } from '@/components/Settings';
 import 'xterm/css/xterm.css';
 
 export default function SettingsPage() {
+  return (
+    <Suspense>
+      <SettingsPageInner />
+    </Suspense>
+  );
+}
+
+function SettingsPageInner() {
   const searchParams = useSearchParams();
   const sectionParam = searchParams.get('section');
   const [activeSection, setActiveSection] = useState<SettingsSection>('general');
